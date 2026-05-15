@@ -30,10 +30,59 @@ model User {
   username      String    @unique
   password      String
   createdAt     DateTime   @default(now())
+
+  balance       Balance?
+  orders        Order[]
 }
 
-model Stocks {
-  id            Int       @id @default(autoincrement())
-  title         String    
-  symbol        String     @unique
+model Balance {
+  id             Int      @id @default(autoincrement())
+  userId         Int      @unique
+  Inr            Float    @default(0)
+  InrLocked      Float    @default(0)
+
+  user           User     @relation(fields: [userId], references: [id])
+}
+model Stock {
+  id             Int       @id @default(autoincrement())
+  title          String    
+  symbol         String     @unique
+
+  orders         Order[]
+  fills          Fill[]
+
+}
+model Fill {
+  id             Int      @id @default(autoincrement())
+  stockId        Int      
+  price          Float
+  quantity       Int
+  buyId          Int
+  sellId         Int
+  createdAt      DateTime    @default(now())
+
+  stock          Stock       @relation(fields: [stockId],    references: [id])
+  buyOrder       Order       @relation("BuyOrder",fields: [buyId], references: [id])
+  sellOrder      Order       @relation("SellOrder",fields: [sellId],  references: [id])
+  
+
+}
+model Order {
+  id            Int        @id @default(autoincrement())
+  userId        Int       
+  side          Side       
+  type          OrderType
+  stockId       Int        
+  Quantity      Int
+  FilledQty     Int
+  Price         Float?
+  status        OrderStatus
+  createdAt     DateTime      @default(now())
+
+  user         User       @relation(fields: userId,references: [id])
+  stock        Stock      @relation(fields: stockId, references: [id])
+  buyFills     Fill[]     @relation("BuyOrder")
+  sellFills    Fill[]    @relation("SellOrder")
+
+
 }
