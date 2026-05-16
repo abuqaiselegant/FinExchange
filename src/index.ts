@@ -124,7 +124,7 @@ app.get("/balance", requireAuth, async (req: AuthRequest, res: Response) => {
     where: { userId }
   })
 
-  res.json({ balances })
+  res.json({ balance })
 })
 
 // ─────────────────────────────────────────
