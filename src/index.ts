@@ -18,7 +18,7 @@ app.post("/auth/signup", async (req: Request, res: Response) => {
   const { username, password } = req.body
 
   if (!username || !password) {
-    res.status(400).json({ error: "Username and password required" })
+    res.status(400).json({ error: "User credential required" })
     return
   }
 
