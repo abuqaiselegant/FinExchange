@@ -16,6 +16,7 @@ enum Side {
 enum OrderType {
   LIMIT
   MARKET
+  IOC
 }
 
 enum OrderStatus {
