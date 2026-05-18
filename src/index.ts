@@ -27,7 +27,7 @@ app.post("/auth/signup", async (req: Request, res: Response) => {
   })
 
   if (existing) {
-    res.status(400).json({ error: "Username already taken" })
+    res.status(400).json({ error: "Username already done taken" })
     return
   }
 
